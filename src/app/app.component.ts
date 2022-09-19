@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { JsonExportService } from './services/json-export.service';
 import { ModelAddService } from './services/model-add.service';
 import { SpacesService } from './services/spaces.service';
-import {
-  IFCViewerService,
-  LoadingStatus,
-  ModelFileType,
-  ModelLoaderService,
-} from 'ngx-ifc-viewer';
 
 // Import from other files
 import { modelViewerSettings } from './viewer-settings';
-import { LBDParsersService } from 'ngx-lbd-parsers';
-import { ComunicaService, Source, SourceType } from 'ngx-comunica';
+// import { ComunicaService, Source, SourceType } from 'ngx-comunica';
+import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
+import { Source, SourceType } from 'src/app/3rdparty/comunica/models';
 import * as XLSX from 'xlsx';
 import { Binary } from '@angular/compiler';
 

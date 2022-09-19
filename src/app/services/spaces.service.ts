@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ComunicaService } from 'ngx-comunica';
+// import { ComunicaService } from 'ngx-comunica';
+import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
+import { Source, SourceType } from 'src/app/3rdparty/comunica/models';
 import { WKTObject, WKTObjectOptions } from 'ngx-ifc-viewer';
 import { lastValueFrom } from 'rxjs';
 import { Space } from '../models';
