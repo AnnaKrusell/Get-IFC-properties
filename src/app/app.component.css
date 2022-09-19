@@ -1,0 +1,35 @@
+.container{
+    height: 100vh;
+    width: 100%;
+}
+
+/* Table */
+.table{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.table .row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.table .header{
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.table .cell{
+    width: 100%;
+    background-color: #eee;
+}
+
+.table .row:hover{
+    cursor: pointer;
+    font-weight: 500;
+}

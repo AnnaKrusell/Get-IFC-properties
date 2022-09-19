@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-bim-app": {
+    "heat-transfer-areas": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-bim-app",
+            "outputPath": "dist/heat-transfer-areas",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,9 +23,12 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ngx-comunica/assets/comunica-browser.js"
+              ]
           },
           "configurations": {
             "production": {
@@ -64,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "my-bim-app:build:production"
+              "browserTarget": "heat-transfer-areas:build:production"
             },
             "development": {
-              "browserTarget": "my-bim-app:build:development"
+              "browserTarget": "heat-transfer-areas:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-bim-app:build"
+            "browserTarget": "heat-transfer-areas:build"
           }
         },
         "test": {
@@ -90,9 +93,12 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ngx-comunica/assets/comunica-browser.js"
+              ]
           }
         }
       }
