@@ -1,4 +1,7 @@
-# MyBimApp
+# Heat Transfer Areas
+
+This app is created in order to calculate the heat transfer losses (for the walls). The user can export the external walltypes to Excel and here add the u-values for each walltype. Afterward the user can import the u-values to the app and click on the button to calculate the heat transfer losses for the external walls.
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
 
