@@ -47,7 +47,7 @@ async insetUValues(){
 
   const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-  PREFIX ex: <https://web-bim/example/>
+  PREFIX ex: <https://example.com/>
   
   INSERT DATA {<https://web-bim/resources/2O2Fr%24t4X7Zf8NOew3FNhv> ex:uValue 0.21 } 
    `;
@@ -66,20 +66,32 @@ async insetUValues(){
 
 
 async getUValues(): Promise<Space[]>{
-  const query = `PREFIX ex: <https://example.com/> 
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-              
-  SELECT ?p ?o
-  WHERE {
-    <https://web-bim/resources/2O2Fr%24t4X7Zf8NOew3FNhv> ?p ?o  } LIMIT 100
+  const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+  PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#> 
+  PREFIX kga: <https://w3id.org/kobl/geometry-analysis#> 
+  PREFIX bot: <https://w3id.org/bot#>
+  PREFIX ex: <https://example.com/> 
+  
+  SELECT ?space ?wallArea ?uValue ((?wallArea * ?uValue * 32 ) AS ?transmissionloss)
+  WHERE{
+  ?space a bot:Space .
+   <https://web-bim/resources/2O2Fr%24t4X7Zf8NOew3FNhv> ex:uValue ?uValue
+  
+  {SELECT ?space (SUM(?a) AS ?wallArea) 
+  WHERE{  
+    ?i a bot:Interface ; 
+  bot:interfaceOf ?space, <https://web-bim/resources/2O2Fr%24t4X7Zf8NOew3FNhv>  ;
+   kga:area ?a .  
+       } GROUP BY ?space }}
    `;
   const values = await lastValueFrom(this._comunica.selectQuery(query));
     return values.map((item: any) => {
-      const wall = item.p.value;
-      const type = item.o.value;
+      const space = item.space.value;
+      const wallArea = item.wallArea.value;
+      const uValue = item.uValue.value;
+      const transmissionloss = item.transmissionloss.value;
 
-      return {wall, type};
+      return {space, transmissionloss, wallArea, uValue};
   })
 }
 
