@@ -8,12 +8,12 @@
       <input #ifcUpload type="file" (change)="onModelUpload($event)" style="display:none" accept=".ifc">
       <button mat-raised-button (click)="ifcUpload.click()">Upload IFC</button>
 
-      <button  mat-raised-button *ngIf="fileUploaded" (click)="exportexcel()">Export to Excel to update U-values</button>
+      <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel to update U-values</button>
       
       <input #excelUpload type="file" (change)="importExcel($event)" style="display:none" accept=".xlsx">
-      <button  mat-raised-button *ngIf="exportedToExcel" (click)="excelUpload.click()">Import U-values from Excel</button>
+      <button  mat-raised-button *ngIf="fileUploaded" (click)="excelUpload.click()">Import U-values from Excel</button>
       <button  mat-raised-button *ngIf="readyToCal" (click)="implementUValues($event)"> Calculate Transmission Losses</button>
-      <table *ngIf="exportedToExcel && fileUploaded">
+      <table *ngIf="readyToCal">
         <tr>
           <th>WallTypes</th>
           <th>UValue</th>

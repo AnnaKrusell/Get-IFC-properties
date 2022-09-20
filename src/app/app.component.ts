@@ -5,11 +5,10 @@ import { SpacesService } from './services/spaces.service';
 
 // Import from other files
 import { modelViewerSettings } from './viewer-settings';
+import * as XLSX from 'xlsx';
 // import { ComunicaService, Source, SourceType } from 'ngx-comunica';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
-import { Source, SourceType } from 'src/app/3rdparty/comunica/models';
-import * as XLSX from 'xlsx';
-import { Binary } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-root',
@@ -22,9 +21,8 @@ export class AppComponent implements OnInit {
   public uValues: any[] = [];
   public createdUValues: any[] = [];
   public jsonExport: any;
-  fileName = 'ExcelSheet.xlsx';
+  public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
-  public exportedToExcel: boolean = false;
   public readyToCal: boolean = false;
   public excelData: any;
 
@@ -68,7 +66,7 @@ export class AppComponent implements OnInit {
     return this.jsonExport;
   }
 
-  exportexcel(): void {
+  exportExcel(): void {
     /* pass here the table id */
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -79,7 +77,6 @@ export class AppComponent implements OnInit {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
-    this.exportedToExcel = true;
   }
 
   importExcel(ev: any): void {
@@ -100,13 +97,16 @@ export class AppComponent implements OnInit {
       console.log('Walltypes', this.excelData[0].WallTypes);
 
       this.readyToCal = true;
+      
+      return this.excelData;
     };
   }
 
   async implementUValues(ev: any) {
     // Binds the results from services/spaces to the variable spaces
     console.log('Inserting uvalues');
-    await this._spaceService.insetUValues();
+    console.log(this.excelData[0].UValue)
+    await this._spaceService.insetUValues(this.excelData[0].UValue);
     console.log('Uvalues insertet');
     console.log(this.uValues);
 
