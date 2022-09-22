@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 // import { ComunicaService } from 'ngx-comunica';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
-import { Source, SourceType } from 'src/app/3rdparty/comunica/models';
+import { Serialization, Source, SourceType } from 'src/app/3rdparty/comunica/models';
 import { WKTObject, WKTObjectOptions } from 'ngx-ifc-viewer';
 import { lastValueFrom } from 'rxjs';
 import { Space } from '../models';
 import { AppComponent } from '../app.component';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,10 @@ export class SpacesService {
   public queryResult?: any;
   public queryComplete: boolean = false;
 
-  constructor(private _comunica: ComunicaService) {}
+  constructor(
+    private _comunica: ComunicaService,
+    private _util: UtilsService
+  ) {}
 
   async getSpaces(): Promise<Space[]> {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -44,19 +48,20 @@ export class SpacesService {
     console.log(" query insert")
     console.log(excelData[0].WallTypes)
 
+    const values = this._util.buildValueStringMulti(excelData);
+
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
     PREFIX ex: <https://example.com/> 
     
-    INSERT{ ?wall ex:uValue ?uValue } 
+    INSERT{ ?wall ex:uValue ?UValue } 
     WHERE {
-    ?wall a ifc:IfcWallStandardCase . 
-    ?wall <https://web-bim/resources/referencePsetWallcommon> ?type .
-    
-    VALUES ( ?type ?uValue ) 
-    {( "${excelData[0].WallTypes}" ${excelData[0].UValue}  ) 
-     ( "${excelData[1].WallTypes}" ${excelData[1].UValue}  ) }
-    } `;
+      ${values}
+      ?wall a ifc:IfcWallStandardCase . 
+      ?wall <https://web-bim/resources/referencePsetWallcommon> ?WallTypes .
+    }`;
+
+    console.log(query);
 
     this.queryResult = undefined;
     this.queryComplete = false;
@@ -67,6 +72,17 @@ export class SpacesService {
     } catch (err) {
       console.log(err);
     }
+
+    // Test construct
+    try {
+      const q2 = query.replace("INSERT", "CONSTRUCT");
+      const q3 = `CONSTRUCT{?wall <https://ex> ?WallTypes} WHERE{VALUES ?WallTypes { "Basic Wall:Interior - Partition (92mm Stud)" } ?wall a <http://ifcowl.openbimstandards.org/IFC2X3_Final#IfcWallStandardCase> ; <https://web-bim/resources/referencePsetWallcommon> ?WallTypes} LIMIT 5`;
+      const triples = await this._comunica.constructQuery(q3, undefined, Serialization.Turtle);
+      console.log(triples);
+    } catch (err) {
+      console.log(err);
+    }
+
   }
 
   async insetUValues0(excelData: any) {

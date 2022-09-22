@@ -24,6 +24,7 @@
     "@grapecity/spread-excelio": "^15.2.2",
     "@grapecity/spread-sheets": "^15.2.2",
     "@grapecity/spread-sheets-angular": "^15.2.2",
+    "@types/node": "^18.7.18",
     "angular-split": "^13.2.0",
     "camera-controls": "^1.36.2",
     "jsonld": "^8.1.0",
