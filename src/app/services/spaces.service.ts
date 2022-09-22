@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { ComunicaService } from 'ngx-comunica';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
-import { Serialization, Source, SourceType } from 'src/app/3rdparty/comunica/models';
+import { Serialization, Source, SourceType, UpdateResult } from 'src/app/3rdparty/comunica/models';
 import { WKTObject, WKTObjectOptions } from 'ngx-ifc-viewer';
 import { lastValueFrom } from 'rxjs';
 import { Space } from '../models';
@@ -44,7 +44,7 @@ export class SpacesService {
 
   
 
-  async insetUValues(excelData: any) {
+  async insetUValues(excelData: any): Promise<UpdateResult> {
     console.log(" query insert")
     console.log(excelData[0].WallTypes)
 
@@ -63,25 +63,7 @@ export class SpacesService {
 
     console.log(query);
 
-    this.queryResult = undefined;
-    this.queryComplete = false;
-
-    try {
-      this.queryResult = await this._comunica.updateQuery(query);
-      this.queryComplete = true;
-    } catch (err) {
-      console.log(err);
-    }
-
-    // Test construct
-    try {
-      const q2 = query.replace("INSERT", "CONSTRUCT");
-      const q3 = `CONSTRUCT{?wall <https://ex> ?WallTypes} WHERE{VALUES ?WallTypes { "Basic Wall:Interior - Partition (92mm Stud)" } ?wall a <http://ifcowl.openbimstandards.org/IFC2X3_Final#IfcWallStandardCase> ; <https://web-bim/resources/referencePsetWallcommon> ?WallTypes} LIMIT 5`;
-      const triples = await this._comunica.constructQuery(q3, undefined, Serialization.Turtle);
-      console.log(triples);
-    } catch (err) {
-      console.log(err);
-    }
+    return this._comunica.updateQuery(query);
 
   }
 

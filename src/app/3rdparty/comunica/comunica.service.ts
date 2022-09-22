@@ -155,6 +155,9 @@ export class ComunicaService {
     if(sizeBefore>sizeAfter){
         res.deleted = sizeAfter-sizeBefore;
     }
+
+    this.sources$.next(this.sources);
+    
     return res;
 
   }

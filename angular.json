@@ -27,7 +27,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/comunica/comunica-browser.js"
+              "node_modules/ngx-comunica/assets/comunica-browser.js"
               ]
           },
           "configurations": {
@@ -97,7 +97,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/comunica/comunica-browser.js"
+              "node_modules/ngx-comunica/assets/comunica-browser.js"
               ]
           }
         }

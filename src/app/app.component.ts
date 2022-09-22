@@ -106,7 +106,12 @@ export class AppComponent implements OnInit {
     // Binds the results from services/spaces to the variable spaces
     console.log('Inserting uvalues');
     console.log(this.excelData)
-    await this._spaceService.insetUValues(this.excelData);
+    
+    try{
+      await this._spaceService.insetUValues(this.excelData);
+    }catch(err){
+      console.log(err);
+    }
     
 
     // Binds the results from services/spaces to the variable spaces
