@@ -105,10 +105,9 @@ export class AppComponent implements OnInit {
   async implementUValues(ev: any) {
     // Binds the results from services/spaces to the variable spaces
     console.log('Inserting uvalues');
-    console.log(this.excelData[0].UValue)
-    await this._spaceService.insetUValues(this.excelData[0].UValue);
-    console.log('Uvalues insertet');
-    console.log(this.uValues);
+    console.log(this.excelData)
+    await this._spaceService.insetUValues(this.excelData);
+    
 
     // Binds the results from services/spaces to the variable spaces
     console.log('getting inserted uvalues');
