@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpacesService } from './spaces.service';
+import { ElementsService } from './elements.service';
 
 describe('SpacesService', () => {
-  let service: SpacesService;
+  let service: ElementsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SpacesService);
+    service = TestBed.inject(ElementsService);
   });
 
   it('should be created', () => {

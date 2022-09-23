@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonExportService } from './services/json-export.service';
 import { ModelAddService } from './services/model-add.service';
-import { SpacesService } from './services/spaces.service';
+import { ElementsService } from './services/elements.service';
 
 // Import from other files
 import { modelViewerSettings } from './viewer-settings';
@@ -24,11 +24,12 @@ export class AppComponent implements OnInit {
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
   public readyToCal: boolean = false;
+  public doneCal: boolean = false;
   public excelData: any;
 
   constructor(
     private _modelAdd: ModelAddService,
-    private _spaceService: SpacesService,
+    private _spaceService: ElementsService,
     private _json_exportService: JsonExportService,
     private _comunica: ComunicaService
   ) {}
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
     console.log('Model loaded!');
 
     // Binds the results from services/spaces to the variable spaces
-    this.spaces = await this._spaceService.getSpaces();
+    this.spaces = await this._spaceService.getWallTypes();
   }
 
   clickedSpace(URI: string) {
@@ -117,6 +118,8 @@ export class AppComponent implements OnInit {
     // Binds the results from services/spaces to the variable spaces
     console.log('getting inserted uvalues');
     this.createdUValues = await this._spaceService.getUValues();
+    this.readyToCal = false;
+    this.doneCal = true; 
     console.log('result from Uvalues insertet');
     console.log(this.createdUValues);
   }
