@@ -1,6 +1,6 @@
 export interface Space{
-    URI: string;
-    name: string;
+    Pset: string;
+    Props: number;
 }
 
 export interface excelData{

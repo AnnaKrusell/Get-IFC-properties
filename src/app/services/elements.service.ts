@@ -21,24 +21,24 @@ export class ElementsService {
   ) {}
 
   async getWallTypes(): Promise<Space[]> {
-    const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-            
-            SELECT DISTINCT ?type (GROUP_CONCAT(?wall) AS ?walls)
-            WHERE {
-            ?wall a ifc:IfcWallStandardCase ;
-                    <https://web-bim/resources/isExternalPsetWallcommon> ?true ;
-                    <https://web-bim/resources/referencePsetWallcommon> ?type ;
-                  rdfs:label ?label .
-            } GROUP BY ?type
-      
+    const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+    PREFIX ex: <https://example.com/> 
+    PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
+    
+    SELECT ?psetName (GROUP_CONCAT(?propName) AS ?properties)
+    WHERE { 
+        ?pset a ifc:IfcPropertySet ;
+                rdfs:label ?psetName ;
+                ex:hasProperty ?property .
+        ?property rdfs:label ?propName
+    } GROUP BY ?psetName
        `;
     const spaces = await lastValueFrom(this._comunica.selectQuery(query));
     return spaces.map((item: any) => {
-      const URI = item.type.value;
-      const name = item.walls.value;
+      const Pset = item.psetName.value;
+      const Props = item.properties.value;
 
-      return { URI, name };
+      return { Pset, Props };
     });
   }
 
@@ -91,10 +91,7 @@ export class ElementsService {
      ( "${excelData[1].WallTypes}"^^<xsd:string> ${excelData[1].UValue}  )
      ( "${excelData[2].WallTypes}"^^<xsd:string> ${excelData[2].UValue}  )
      ( "${excelData[3].WallTypes}"^^<xsd:string> ${excelData[3].UValue}  )
-     ( "${excelData[4].WallTypes}"^^<xsd:string> ${excelData[4].UValue}  )
-     ( "${excelData[5].WallTypes}"^^<xsd:string> ${excelData[5].UValue}  )
-     ( "${excelData[6].WallTypes}"^^<xsd:string> ${excelData[6].UValue}  )
-     ( "${excelData[7].WallTypes}"^^<xsd:string> ${excelData[7].UValue}  ) }
+     ( "${excelData[4].WallTypes}"^^<xsd:string> ${excelData[4].UValue}  ) }
     } `;
 
     this.queryResult = undefined;

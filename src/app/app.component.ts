@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   constructor(
     private _modelAdd: ModelAddService,
     private _spaceService: ElementsService,
-    private _json_exportService: JsonExportService,
+    // private _json_exportService: JsonExportService,
     private _comunica: ComunicaService
   ) {}
 
@@ -56,19 +56,20 @@ export class AppComponent implements OnInit {
     this.spaces = await this._spaceService.getWallTypes();
   }
 
-  clickedSpace(URI: string) {
-    console.log(URI);
+  clickedSpace(Pset: string) {
+    console.log(Pset);
   }
 
-  exportResult(ev: any) {
-    console.log('spaces');
-    console.log(this.spaces);
-    this.jsonExport = this._json_exportService.downloadFile(this.spaces);
-    return this.jsonExport;
-  }
+  // exportResult(ev: any) {
+  // // Export the data to json
+  //   console.log('spaces');
+  //   console.log(this.spaces);
+  //   this.jsonExport = this._json_exportService.downloadFile(this.spaces);
+  //   return this.jsonExport;
+  // }
 
   exportExcel(): void {
-    /* pass here the table id */
+    // Export the query data to excel 
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
@@ -80,47 +81,4 @@ export class AppComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
-  importExcel(ev: any): void {
-    let excelFile: File = ev.target.files[0];
-    console.log('excelFile');
-    console.log(excelFile);
-
-    let fileReader = new FileReader();
-    fileReader.readAsBinaryString(excelFile);
-
-    fileReader.onload = (e) => {
-      var workBook = XLSX.read(fileReader.result, { type: 'binary' });
-      var sheetNames = workBook.SheetNames;
-      this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
-
-      console.log(this.excelData);
-      console.log('Uvalue', this.excelData[0].UValue);
-      console.log('Walltypes', this.excelData[0].WallTypes);
-
-      this.readyToCal = true;
-      
-      return this.excelData;
-    };
-  }
-
-  async implementUValues(ev: any) {
-    // Binds the results from services/spaces to the variable spaces
-    console.log('Inserting uvalues');
-    console.log(this.excelData)
-    
-    try{
-      await this._spaceService.insetUValues(this.excelData);
-    }catch(err){
-      console.log(err);
-    }
-    
-
-    // Binds the results from services/spaces to the variable spaces
-    console.log('getting inserted uvalues');
-    this.createdUValues = await this._spaceService.getUValues();
-    this.readyToCal = false;
-    this.doneCal = true; 
-    console.log('result from Uvalues insertet');
-    console.log(this.createdUValues);
-  }
 }

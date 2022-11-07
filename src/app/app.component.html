@@ -10,43 +10,13 @@
 
       <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel to update U-values</button>
       
-      <input #excelUpload type="file" (change)="importExcel($event)" style="display:none" accept=".xlsx">
-      <button  mat-raised-button *ngIf="fileUploaded" (click)="excelUpload.click()">Import U-values from Excel</button>
-      <button  mat-raised-button *ngIf="readyToCal" (click)="implementUValues($event)"> Calculate Transmission Losses</button>
-      <table *ngIf="readyToCal">
-        <tr>
-          <th>WallTypes</th>
-          <th>UValue</th>
-        </tr>
-        <tr *ngFor="let item of excelData">
-          <td>{{item.WallTypes}}</td>
-          <td>{{item.UValue}}</td>
-        </tr>
-      </table>
-
-
-      <table *ngIf="doneCal">
-        <tr> 
-          <th>WallTypes</th>
-          <th>UValue</th>
-          <th>WallArea</th>
-          <th>TransmissionLoss</th>
-        </tr>
-        <tr *ngFor="let item of createdUValues">
-          <td>{{item.type}}</td>
-          <td>{{item.wallArea}}</td>
-          <td>{{item.uValue}}</td>
-          <td>{{item.transmissionloss}}</td>
-        </tr>
-      </table>
-      
       <table *ngIf="fileUploaded && readyToCal == false && doneCal == false " id="excel-table">
         <tr>
-          <th>WallTypes</th>
-          <th>UValue</th>
+          <th>Pset</th>
+          <th>Properties</th>
         </tr>
         <tr *ngFor="let item of spaces">
-          <td>{{item.URI}}</td>
+          <td>{{item.Pset}}</td>
           <td></td>
         </tr>
       </table>
