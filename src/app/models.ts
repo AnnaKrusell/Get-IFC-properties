@@ -1,9 +1,5 @@
 export interface Space{
-    Pset: string;
-    Props: number;
+    pset: string;
+    prop: string;
 }
 
-export interface excelData{
-    UValue: string,
-    WallTypes: string,
-}

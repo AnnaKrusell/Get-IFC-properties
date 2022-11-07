@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
     console.log('Model loaded!');
 
     // Binds the results from services/spaces to the variable spaces
-    this.spaces = await this._spaceService.getWallTypes();
+    this.spaces = await this._spaceService.getProps();
   }
 
   clickedSpace(Pset: string) {

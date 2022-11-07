@@ -13,13 +13,21 @@
       <table *ngIf="fileUploaded && readyToCal == false && doneCal == false " id="excel-table">
         <tr>
           <th>Pset</th>
-          <th>Properties</th>
+          <th>Instans</th>
+          <th>Predicate</th>
+          <th>Value</th>
         </tr>
         <tr *ngFor="let item of spaces">
-          <td>{{item.Pset}}</td>
+          <td>{{item.URI}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.predicate}}</td>
+          <td>{{item.value}}</td>
+          
           <td></td>
         </tr>
       </table>
+
+      
       
     </as-split-area>
   </as-split>
