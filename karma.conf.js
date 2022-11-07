@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/heat-transfer-areas'),
+      dir: require('path').join(__dirname, './coverage/get-ifc-properties'),
       subdir: '.',
       reporters: [
         { type: 'html' },

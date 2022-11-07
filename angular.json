@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "heat-transfer-areas": {
+    "get-ifc-properties": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/heat-transfer-areas",
+            "outputPath": "dist/get-ifc-properties",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "heat-transfer-areas:build:production"
+              "browserTarget": "get-ifc-properties:build:production"
             },
             "development": {
-              "browserTarget": "heat-transfer-areas:build:development"
+              "browserTarget": "get-ifc-properties:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "heat-transfer-areas:build"
+            "browserTarget": "get-ifc-properties:build"
           }
         },
         "test": {
