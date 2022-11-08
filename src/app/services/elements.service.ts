@@ -21,17 +21,18 @@ export class ElementsService {
   ) {}
 
  
-  async getProps(): Promise<Space[]> {
+  async getWallProps(): Promise<Space[]> {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX ex: <https://example.com/>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    SELECT ?inst ?subclass ?p ?o 
+    SELECT ?inst ?p ?o 
     WHERE { 
-        ?inst a ?subclass .
+        ?inst a ifc:IfcWall .
         ?inst ?p ?o .
-    } LIMIT 1000
+    } 
       
        `;
+
     const spaces = await lastValueFrom(this._comunica.selectQuery(query));
     return spaces.map((item: any) => {
       const URI = item.subclass.value;
@@ -43,30 +44,26 @@ export class ElementsService {
     });
   }
 
-
-
-  async getProps0(): Promise<Space[]> {
+  async getWindowProps(): Promise<Space[]> {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX ex: <https://example.com/>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    PREFIX bot: <https://w3id.org/bot#>
-    
-    SELECT DISTINCT ?type (GROUP_CONCAT(?wall) AS ?walls)
-    WHERE {
-      ?wall a ifc:IfcWallStandardCase ;
-              <https://web-bim/resources/referencePsetWallcommon> ?type ;
-              rdfs:label ?label .
-      ?space a bot:Space .
-      ?i a bot:Interface ; 
-           bot:interfaceOf ?space, ?wall  .
-    } GROUP BY ?type
+    SELECT ?inst ?p ?o 
+    WHERE { 
+        ?inst a ifc:IfcWindow .
+        ?inst ?p ?o .
+    } 
       
        `;
+
     const spaces = await lastValueFrom(this._comunica.selectQuery(query));
     return spaces.map((item: any) => {
-      const URI = item.type.value;
-      const name = item.walls.value;
+      const URI = item.subclass.value;
+      const name = item.inst.value;
+      const predicate = item.p.value;
+      const value = item.o.value;
 
-      return { URI, name };
+      return { URI, name, predicate, value };
     });
   }
 
