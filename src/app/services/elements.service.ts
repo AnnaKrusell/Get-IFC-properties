@@ -28,9 +28,12 @@ export class ElementsService {
 
     const spaces = await lastValueFrom(this._comunica.selectQuery(query));
     return spaces.map((item: any) => {
-      const instance = item.inst.value;
-      const property = item.p.value;
+      const instanceWithURI = item.inst.value;
+      const propertyWithURI = item.p.value;
       const value = item.o.value;
+
+      var instance = instanceWithURI.split('/').pop();
+      var property = propertyWithURI.split('/').pop();
 
       return { instance, property, value };
     });

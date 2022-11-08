@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   public ifcElements: any[] = [];
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
+  public dataExtracted: boolean = false;
   public excelData: any;
   public list: any;
 
@@ -76,19 +77,12 @@ export class AppComponent implements OnInit {
       if (i.checked) {
         this.ifcElements = await this._elementService.getProps(i.title);
     }}
+    this.dataExtracted = true ;
   }
 
   clickedSpace(Pset: string) {
     console.log(Pset);
   }
-
-  // exportResult(ev: any) {
-  // // Export the data to json
-  //   console.log('spaces');
-  //   console.log(this.spaces);
-  //   this.jsonExport = this._json_exportService.downloadFile(this.spaces);
-  //   return this.jsonExport;
-  // }
 
   exportExcel(): void {
     // Export the query data to excel 

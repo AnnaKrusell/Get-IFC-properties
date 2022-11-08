@@ -8,10 +8,10 @@
       <input #ifcUpload type="file" (change)="onModelUpload($event)" style="display:none" accept=".ifc">
       <button mat-raised-button (click)="ifcUpload.click()">Upload IFC</button>
       <button  mat-raised-button *ngIf="fileUploaded" (click)="extractData()">Extract Data</button>
-      <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel</button>
+      <button  mat-raised-button *ngIf="dataExtracted" (click)="exportExcel()">Export to Excel</button>
 
 
-      <ul>
+      <ul  *ngIf="fileUploaded" >
         <li *ngFor="let item of list">
           <input type="checkbox" [(ngModel)]="item.checked">{{item.title}}
         </li>
