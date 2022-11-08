@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { JsonExportService } from './services/json-export.service';
 import { ModelAddService } from './services/model-add.service';
 import { ElementsService } from './services/elements.service';
 
 // Import from other files
 import { modelViewerSettings } from './viewer-settings';
 import * as XLSX from 'xlsx';
-// import { ComunicaService, Source, SourceType } from 'ngx-comunica';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 
 @Component({
@@ -16,23 +14,15 @@ import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 })
 export class AppComponent implements OnInit {
   public modelViewerSettings = modelViewerSettings;
-  public spaces: any[] = [];
-  public uValues: any[] = [];
-  public createdUValues: any[] = [];
-  public jsonExport: any;
+  public ifcElements: any[] = [];
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
-  public readyToCal: boolean = false;
-  public doneCal: boolean = false;
   public excelData: any;
-
   public list: any;
- 
 
   constructor(
     private _modelAdd: ModelAddService,
-    private _spaceService: ElementsService,
-    // private _json_exportService: JsonExportService,
+    private _elementService: ElementsService,
     private _comunica: ComunicaService
   ) {}
 
@@ -46,7 +36,7 @@ export class AppComponent implements OnInit {
       {
         id: 1,
         title: 'IfcWall',
-        checked: true,
+        checked: false,
       },
       {
         id: 2,
@@ -56,7 +46,7 @@ export class AppComponent implements OnInit {
       {
         id: 3,
         title: 'IfcSlab',
-        checked: true,
+        checked: false,
       },
     ]
   }
@@ -65,7 +55,6 @@ export class AppComponent implements OnInit {
     return this.list.filter((item: { checked: boolean; }) => item.checked);
   }
 
-  
 
   async onModelUpload(ev: any) {
     if (ev.target.files.leng == 0) {
@@ -80,7 +69,7 @@ export class AppComponent implements OnInit {
     console.log('Model loaded!');
 
     // Binds the results from services/spaces to the variable spaces
-    this.spaces = await this._spaceService.getWallProps();
+    this.ifcElements = await this._elementService.getProps();
   }
 
   clickedSpace(Pset: string) {

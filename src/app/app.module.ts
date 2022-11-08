@@ -9,7 +9,6 @@ import { AngularSplitModule } from 'angular-split';
 import { IfcViewerModule } from 'ngx-ifc-viewer';
 import { MatButtonModule } from '@angular/material/button';
 import { LBDParsersModule } from 'ngx-lbd-parsers';
-// import { ComunicaModule } from 'ngx-comunica';
 import { ComunicaModule } from 'src/app/3rdparty/comunica/comunica.module';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';

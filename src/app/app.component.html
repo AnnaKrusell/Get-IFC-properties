@@ -19,17 +19,17 @@
       
       <pre>{{this.result | json}}</pre>
 
-      <table *ngIf="fileUploaded && readyToCal == false && doneCal == false " id="excel-table">
+      <table *ngIf="fileUploaded" id="excel-table">
         <tr>
-          <th>Pset</th>
-          <th>Instans</th>
-          <th>Predicate</th>
+          <th>Instance</th>
+          <th>IfcType</th>
+          <th>Property</th>
           <th>Value</th>
         </tr>
-        <tr *ngFor="let item of spaces">
-          <td>{{item.URI}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.predicate}}</td>
+        <tr *ngFor="let item of ifcElements">
+          <td>{{item.instance}}</td>
+          <td>{{item.ifcType}}</td>
+          <td>{{item.property}}</td>
           <td>{{item.value}}</td>
           
           <td></td>

@@ -4,7 +4,7 @@ import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 import { Serialization, Source, SourceType, UpdateResult } from 'src/app/3rdparty/comunica/models';
 import { WKTObject, WKTObjectOptions } from 'ngx-ifc-viewer';
 import { lastValueFrom } from 'rxjs';
-import { Space } from '../models';
+import { Properties } from '../models';
 import { AppComponent } from '../app.component';
 import { UtilsService } from './utils.service';
 
@@ -21,13 +21,13 @@ export class ElementsService {
   ) {}
 
  
-  async getWallProps(): Promise<Space[]> {
+  async getProps(): Promise<Properties[]> {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX ex: <https://example.com/>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    SELECT ?inst ?p ?o 
+    SELECT ?inst ?p ?o ?ifcType
     WHERE { 
-        ?inst a ifc:IfcWall .
+        ?inst a ?ifcType .
         ?inst ?p ?o .
     } LIMIT 1000
       
@@ -35,36 +35,12 @@ export class ElementsService {
 
     const spaces = await lastValueFrom(this._comunica.selectQuery(query));
     return spaces.map((item: any) => {
-      const URI = item.subclass.value;
-      const name = item.inst.value;
-      const predicate = item.p.value;
+      const ifcType = item.ifcType.value;
+      const instance = item.inst.value;
+      const property = item.p.value;
       const value = item.o.value;
 
-      return { URI, name, predicate, value };
+      return { ifcType, instance, property, value };
     });
   }
-
-  async getWindowProps(): Promise<Space[]> {
-    const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX ex: <https://example.com/>
-    PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    SELECT ?inst ?p ?o 
-    WHERE { 
-        ?inst a ifc:IfcWindow .
-        ?inst ?p ?o .
-    } 
-      
-       `;
-
-    const spaces = await lastValueFrom(this._comunica.selectQuery(query));
-    return spaces.map((item: any) => {
-      const URI = item.subclass.value;
-      const name = item.inst.value;
-      const predicate = item.p.value;
-      const value = item.o.value;
-
-      return { URI, name, predicate, value };
-    });
-  }
-
 }

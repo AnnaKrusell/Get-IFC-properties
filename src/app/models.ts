@@ -1,4 +1,4 @@
-export interface Space{
+export interface Properties{
     pset: string;
     prop: string;
 }
