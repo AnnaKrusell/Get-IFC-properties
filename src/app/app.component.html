@@ -8,8 +8,17 @@
       <input #ifcUpload type="file" (change)="onModelUpload($event)" style="display:none" accept=".ifc">
       <button mat-raised-button (click)="ifcUpload.click()">Upload IFC</button>
 
-      <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel to update U-values</button>
+      <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel</button>
+
+
+      <ul>
+        <li *ngFor="let item of list">
+          <input type="checkbox" [(ngModel)]="item.checked">{{item.title}}
+        </li>
+      </ul>
       
+      <pre>{{this.result | json}}</pre>
+
       <table *ngIf="fileUploaded && readyToCal == false && doneCal == false " id="excel-table">
         <tr>
           <th>Pset</th>

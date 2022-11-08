@@ -29,6 +29,7 @@ export class ElementsService {
     WHERE { 
         ?inst a ?subclass .
         ?inst ?p ?o .
+        FILTER(isUri(?subclass) && STRSTARTS(STR(?subclass), STR(ifc:)))
     } LIMIT 1000
       
        `;

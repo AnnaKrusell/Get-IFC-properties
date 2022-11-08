@@ -9,7 +9,6 @@ import * as XLSX from 'xlsx';
 // import { ComunicaService, Source, SourceType } from 'ngx-comunica';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,6 +26,9 @@ export class AppComponent implements OnInit {
   public doneCal: boolean = false;
   public excelData: any;
 
+  public list: any;
+ 
+
   constructor(
     private _modelAdd: ModelAddService,
     private _spaceService: ElementsService,
@@ -38,10 +40,35 @@ export class AppComponent implements OnInit {
     this._comunica.getSources().subscribe(res => {
       console.log(res);
     })
+
+
+    this.list = [
+      {
+        id: 1,
+        title: 'IfcWall',
+        checked: true,
+      },
+      {
+        id: 2,
+        title: 'IfcWindow',
+        checked: false,
+      },
+      {
+        id: 3,
+        title: 'IfcSlab',
+        checked: true,
+      },
+    ]
   }
 
+  get result() {
+    return this.list.filter((item: { checked: boolean; }) => item.checked);
+  }
+
+  
+
   async onModelUpload(ev: any) {
-    if (ev.target.files.lenght == 0) {
+    if (ev.target.files.leng == 0) {
       console.log('No file selected');
       return;
     }
@@ -80,5 +107,8 @@ export class AppComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
   }
+
+
+  
 
 }

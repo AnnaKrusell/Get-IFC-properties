@@ -11,7 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { LBDParsersModule } from 'ngx-lbd-parsers';
 // import { ComunicaModule } from 'ngx-comunica';
 import { ComunicaModule } from 'src/app/3rdparty/comunica/comunica.module';
-
+import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { ComunicaModule } from 'src/app/3rdparty/comunica/comunica.module';
     AngularSplitModule,
     IfcViewerModule,
     MatButtonModule,
-    ComunicaModule
+    ComunicaModule,
+    MatRadioModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
