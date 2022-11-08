@@ -1,5 +1,6 @@
 export interface Properties{
-    pset: string;
-    prop: string;
+    title: string;
+    checked: boolean;
+    id: any;
 }
 

@@ -7,7 +7,7 @@
     <as-split-area [size]="70" style="padding: 10px; overflow-y: scroll; display: flex; flex-direction: column; gap: 10px">
       <input #ifcUpload type="file" (change)="onModelUpload($event)" style="display:none" accept=".ifc">
       <button mat-raised-button (click)="ifcUpload.click()">Upload IFC</button>
-
+      <button  mat-raised-button *ngIf="fileUploaded" (click)="extractData()">Extract Data</button>
       <button  mat-raised-button *ngIf="fileUploaded" (click)="exportExcel()">Export to Excel</button>
 
 
@@ -16,19 +16,15 @@
           <input type="checkbox" [(ngModel)]="item.checked">{{item.title}}
         </li>
       </ul>
-      
-      <pre>{{this.result | json}}</pre>
 
       <table *ngIf="fileUploaded" id="excel-table">
         <tr>
           <th>Instance</th>
-          <th>IfcType</th>
           <th>Property</th>
           <th>Value</th>
         </tr>
         <tr *ngFor="let item of ifcElements">
           <td>{{item.instance}}</td>
-          <td>{{item.ifcType}}</td>
           <td>{{item.property}}</td>
           <td>{{item.value}}</td>
           

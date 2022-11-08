@@ -49,7 +49,8 @@ export class AppComponent implements OnInit {
         checked: false,
       },
     ]
-  }
+    return this.list
+  } 
 
   get result() {
     return this.list.filter((item: { checked: boolean; }) => item.checked);
@@ -68,8 +69,13 @@ export class AppComponent implements OnInit {
     await this._modelAdd.loadModel(file);
     console.log('Model loaded!');
 
-    // Binds the results from services/spaces to the variable spaces
-    this.ifcElements = await this._elementService.getProps();
+  }
+
+  async extractData() {
+    for (var i of this.list) {
+      if (i.checked) {
+        this.ifcElements = await this._elementService.getProps(i.title);
+    }}
   }
 
   clickedSpace(Pset: string) {
