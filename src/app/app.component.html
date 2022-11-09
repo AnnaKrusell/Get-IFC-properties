@@ -19,14 +19,17 @@
 
       <table *ngIf="fileUploaded" id="excel-table">
         <tr>
+          <th>IfcType</th>
           <th>Instance</th>
           <th>Property</th>
           <th>Value</th>
         </tr>
         <tr *ngFor="let item of ifcElements">
+          <td>{{item.ifcTypeName}}</td>
           <td>{{item.instance}}</td>
           <td>{{item.property}}</td>
           <td>{{item.value}}</td>
+
           
           <td></td>
         </tr>

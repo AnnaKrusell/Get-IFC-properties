@@ -35,7 +35,7 @@ export class ElementsService {
       var instance = instanceWithURI.split('/').pop();
       var property = propertyWithURI.split('/').pop();
 
-      return { instance, property, value };
+      return { instance, property, value, ifcTypeName };
     });
   }
 }
