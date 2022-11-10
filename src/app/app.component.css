@@ -34,3 +34,10 @@
     font-weight: 500;
 }
   
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+  th, td {
+    background-color: #F0F8FF;
+  }
