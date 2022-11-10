@@ -15,6 +15,7 @@ import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 export class AppComponent implements OnInit {
   public modelViewerSettings = modelViewerSettings;
   public ifcElements: any[] = [];
+  public allElements: any[] = [];
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
   public dataExtracted: boolean = false;
@@ -49,6 +50,34 @@ export class AppComponent implements OnInit {
         title: 'IfcSlab',
         checked: false,
       },
+      {
+        id: 4,
+        title: 'IfcDoor',
+        checked: false,
+      },
+      {
+        id: 5,
+        title: 'IfcRailing',
+        checked: false,
+      },
+      {
+        id: 6,
+        title: 'IfcStair',
+        checked: false,
+      },
+      {
+        id: 7,
+        title: 'IfcCurtainWall',
+        checked: false,
+      },
+      {
+        id: 8,
+        title: 'IfcRoof',
+        checked: false,
+      },
+
+
+
     ]
     return this.list
   } 
@@ -73,10 +102,17 @@ export class AppComponent implements OnInit {
   }
 
   async extractData() {
+    this.allElements = [] ;
     for (var i of this.list) {
       if (i.checked) {
         this.ifcElements = await this._elementService.getProps(i.title);
-    }}
+        this.allElements.push(this.ifcElements)
+        console.log(this.allElements)
+    } 
+  }
+    console.log("Here")
+    console.log(this.allElements)
+    
     this.dataExtracted = true ;
   }
 

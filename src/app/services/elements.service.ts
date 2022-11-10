@@ -20,7 +20,7 @@ export class ElementsService {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX ex: <https://example.com/>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    SELECT ?inst ?p ?o
+    SELECT DISTINCT ?inst ?p ?o
     WHERE { 
         ?inst a ifc:${ifcTypeName} .
         ?inst ?p ?o .
