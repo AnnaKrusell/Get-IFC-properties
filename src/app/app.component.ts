@@ -14,13 +14,14 @@ import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
 })
 export class AppComponent implements OnInit {
   public modelViewerSettings = modelViewerSettings;
+  public allTypes: any[] = [];
   public ifcElements: any[] = [];
   public allElements: any[] = [];
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
   public dataExtracted: boolean = false;
   public excelData: any;
-  public list: any;
+  // public list: any;
 
   constructor(
     private _modelAdd: ModelAddService,
@@ -33,59 +34,42 @@ export class AppComponent implements OnInit {
       console.log(res);
     })
 
-
-    this.list = [
-      {
-        id: 1,
-        title: 'IfcWall',
-        checked: false,
-      },
-      {
-        id: 2,
-        title: 'IfcWindow',
-        checked: false,
-      },
-      {
-        id: 3,
-        title: 'IfcSlab',
-        checked: false,
-      },
-      {
-        id: 4,
-        title: 'IfcDoor',
-        checked: false,
-      },
-      {
-        id: 5,
-        title: 'IfcRailing',
-        checked: false,
-      },
-      {
-        id: 6,
-        title: 'IfcStair',
-        checked: false,
-      },
-      {
-        id: 7,
-        title: 'IfcCurtainWall',
-        checked: false,
-      },
-      {
-        id: 8,
-        title: 'IfcRoof',
-        checked: false,
-      },
-
-
-
-    ]
-    return this.list
+    // this.list = [
+    //   {
+    //     title: 'IfcWall',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcWindow',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcSlab',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcDoor',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcRailing',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcStair',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcCurtainWall',
+    //     checked: false,
+    //   },
+    //   {
+    //     title: 'IfcRoof',
+    //     checked: false,
+    //   },
+    // ]
+    // return this.list
   } 
-
-  get result() {
-    return this.list.filter((item: { checked: boolean; }) => item.checked);
-  }
-
 
   async onModelUpload(ev: any) {
     if (ev.target.files.leng == 0) {
@@ -93,31 +77,27 @@ export class AppComponent implements OnInit {
       return;
     }
     this.fileUploaded = true;
-
     let file: File = ev.target.files[0];
 
     await this._modelAdd.loadModel(file);
     console.log('Model loaded!');
 
+    // Get all types in the IFC file
+    this.allTypes = await this._elementService.getTypes();
+
   }
 
   async extractData() {
+    // When "Extract data"-button is clicked a SPARQL query will be run for each selected type
     this.allElements = [] ;
-    for (var i of this.list) {
+    for (var i of this.allTypes) {
       if (i.checked) {
-        this.ifcElements = await this._elementService.getProps(i.title);
+        this.ifcElements = await this._elementService.getProps(i.type, i.typeWithURI);
         this.allElements.push(this.ifcElements)
-        console.log(this.allElements)
     } 
   }
-    console.log("Here")
-    console.log(this.allElements)
-    
+    // Parameter used in the html  
     this.dataExtracted = true ;
-  }
-
-  clickedSpace(Pset: string) {
-    console.log(Pset);
   }
 
   exportExcel(): void {
@@ -125,11 +105,11 @@ export class AppComponent implements OnInit {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    /* generate workbook and add the worksheet */
+    // Generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* save to file */
+    // Save to file /
     XLSX.writeFile(wb, this.fileName);
   }
 

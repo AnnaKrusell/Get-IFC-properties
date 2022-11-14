@@ -39,5 +39,9 @@ table, th, td {
     border-collapse: collapse;
   }
   th, td {
-    background-color: #F0F8FF;
+    background-color: rgba(30, 144, 255, 0.25);
   }
+
+  .MyList {
+    column-count: 3;
+}
