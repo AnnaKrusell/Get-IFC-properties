@@ -10,7 +10,7 @@
       <button class="btn" mat-raised-button *ngIf="fileUploaded" (click)="extractData()">Extract Data</button>
       <button class="btn" mat-raised-button *ngIf="dataExtracted" (click)="exportExcel()">Export to Excel</button>
 
-      <div *ngIf="fileUploaded"> Select which IFC types you want to make the data extraction for:
+      <div *ngIf="fileUploaded"> Select which types you want to make the data extraction for:
         <ul class="MyList">
           <li *ngFor="let item of allTypes"> 
             <input type="checkbox" [(ngModel)]="item.checked">{{item.type}}
