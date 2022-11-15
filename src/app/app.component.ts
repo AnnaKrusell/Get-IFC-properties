@@ -33,42 +33,6 @@ export class AppComponent implements OnInit {
     this._comunica.getSources().subscribe(res => {
       console.log(res);
     })
-
-    // this.list = [
-    //   {
-    //     title: 'IfcWall',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcWindow',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcSlab',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcDoor',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcRailing',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcStair',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcCurtainWall',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcRoof',
-    //     checked: false,
-    //   },
-    // ]
-    // return this.list
   } 
 
   async onModelUpload(ev: any) {

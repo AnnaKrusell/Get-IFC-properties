@@ -24,8 +24,8 @@ export class ElementsService {
     }
     `;
 
-    const spaces = await lastValueFrom(this._comunica.selectQuery(query));
-    return spaces.map((item: any) => {
+    const types = await lastValueFrom(this._comunica.selectQuery(query));
+    return types.map((item: any) => {
       const typeWithURI = item.type.value;
 
       var type = typeWithURI.split('#').pop();
@@ -49,8 +49,8 @@ export class ElementsService {
     } ORDER BY ?pSet 
     `;
 
-    const spaces = await lastValueFrom(this._comunica.selectQuery(query));
-    return spaces.map((item: any) => {
+    const properties = await lastValueFrom(this._comunica.selectQuery(query));
+    return properties.map((item: any) => {
       // const instanceWithURI = item.inst.value;
       const propertyWithURI = item.Property.value;
       const value = item.Value.value;
