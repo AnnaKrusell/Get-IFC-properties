@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
   } 
 
   async extractData() {
+    this.dataExtracted = false;
     // When "Extract data"-button is clicked a SPARQL query will be run for each selected type
     this.allElements = [] ;
     for (var i of this.allTypes) {
@@ -78,6 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   onSelectAll(){
+    // Change masterCheck for each click
     this.masterCheck = this.masterCheck!;
     for (var i = 0; i < this.allTypes.length; i++) {
       this.allTypes[i].checked = this.masterCheck!;
