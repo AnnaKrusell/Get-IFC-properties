@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   public dataExtracted: boolean = false;
   public excelData: any;
   public masterCheck: boolean = true;
-
+  public modelLoading: boolean = false;
 
   constructor(
     private _modelAdd: ModelAddService,
@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   } 
 
   async onModelUpload(ev: any) {
+    this.modelLoading = true;
     if (ev.target.files.leng == 0) {
       console.log('No file selected');
       return;
@@ -49,9 +50,11 @@ export class AppComponent implements OnInit {
     // Get all types in the IFC file
     this.allTypes = await this._elementService.getTypes();
     this.fileUploaded = true;
+    this.modelLoading = false;
   } 
 
   async extractData() {
+    this.modelLoading = true;
     this.dataExtracted = false;
     // When "Extract data"-button is clicked a SPARQL query will be run for each selected type
     this.allElements = [] ;
@@ -63,6 +66,7 @@ export class AppComponent implements OnInit {
   }
     // Parameter used in the html  
     this.dataExtracted = true ;
+    this.modelLoading = false;
   }
 
   exportExcel(): void {

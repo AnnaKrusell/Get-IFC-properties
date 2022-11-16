@@ -10,10 +10,11 @@ import { IfcViewerModule } from 'ngx-ifc-viewer';
 import { MatButtonModule } from '@angular/material/button';
 import { LBDParsersModule } from 'ngx-lbd-parsers';
 import { ComunicaModule } from 'src/app/3rdparty/comunica/comunica.module';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatRadioModule,
     FormsModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

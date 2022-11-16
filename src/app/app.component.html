@@ -28,7 +28,8 @@
           </li>
         </ul>
       </div>
-
+      
+      <mat-progress-bar *ngIf="modelLoading" mode="indeterminate" class="mat-progress-bar-buffer"></mat-progress-bar>
 
       <div *ngIf="dataExtracted" id="excel-table"> Results from data extraction, which can be exported to Excel
       <table *ngFor="let i of allElements" style="width: 100%;">
