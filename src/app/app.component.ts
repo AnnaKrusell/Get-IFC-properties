@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
   public fileUploaded: boolean = false;
   public dataExtracted: boolean = false;
   public excelData: any;
-  // public list: any;
+  public masterCheck: boolean = true;
+
 
   constructor(
     private _modelAdd: ModelAddService,
@@ -40,7 +41,6 @@ export class AppComponent implements OnInit {
       console.log('No file selected');
       return;
     }
-    this.fileUploaded = true;
     let file: File = ev.target.files[0];
 
     await this._modelAdd.loadModel(file);
@@ -48,8 +48,8 @@ export class AppComponent implements OnInit {
 
     // Get all types in the IFC file
     this.allTypes = await this._elementService.getTypes();
-
-  }
+    this.fileUploaded = true;
+  } 
 
   async extractData() {
     // When "Extract data"-button is clicked a SPARQL query will be run for each selected type
@@ -77,6 +77,13 @@ export class AppComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
+  onSelectAll(){
+    this.masterCheck = this.masterCheck!;
+    for (var i = 0; i < this.allTypes.length; i++) {
+      this.allTypes[i].checked = this.masterCheck!;
+    }
+    return this.allTypes;
+  }
 
   
 

@@ -43,9 +43,6 @@ private async parseRDF(){
   const source = new Source(store, SourceType.RDFJS);
   source.makePrimary();
   this._comunica.addSource(source);
-
-  console.log("database size")
-  console.log(store)
 }
 }
 

@@ -31,10 +31,9 @@ export class ElementsService {
 
       var type = typeWithURI.split('#').pop();
 
-      const checkAll: boolean = true;
       const checked: boolean = false;
 
-      return { type, typeWithURI, checked, checkAll };
+      return { type, typeWithURI, checked };
     });
   }
 
