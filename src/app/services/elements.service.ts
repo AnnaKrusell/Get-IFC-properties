@@ -17,10 +17,11 @@ export class ElementsService {
 
   async getTypes(): Promise<Properties[]> {
     const query = `PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-
     SELECT DISTINCT ?type
     WHERE { 
-        ?s a ?type
+      ?inst a ?type .
+      ?inst ?Property ?Value .
+      ?Property <https://example.com/belongsToPset> ?pSet .
     }
     `;
 
@@ -30,9 +31,10 @@ export class ElementsService {
 
       var type = typeWithURI.split('#').pop();
 
+      const checkAll: boolean = true;
       const checked: boolean = false;
 
-      return { type, typeWithURI, checked };
+      return { type, typeWithURI, checked, checkAll };
     });
   }
 

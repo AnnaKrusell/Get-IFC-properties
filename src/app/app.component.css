@@ -42,6 +42,6 @@ table, th, td {
     background-color: rgba(30, 144, 255, 0.25);
   }
 
-  .MyList {
+  .IfcTypeList {
     column-count: 3;
 }
