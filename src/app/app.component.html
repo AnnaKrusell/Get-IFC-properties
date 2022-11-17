@@ -35,12 +35,14 @@
       <table *ngFor="let i of allElements" style="width: 100%;">
         <tr> 
           <th>IfcType</th>
+          <th>ID</th>
           <th>Property Set</th>
           <th>Property</th>
           <th>Value</th>
         </tr>
         <tr *ngFor="let item of i">
           <td>{{item.TypeName}}</td>
+          <td>{{item.instGUID}}</td>
           <td>{{item.pSet}}</td>
           <td>{{item.property}}</td>
           <td>{{item.value}}</td>          
