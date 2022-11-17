@@ -17,15 +17,16 @@ export class ElementsService {
 
   async getTypes(): Promise<Properties[]> {
     const query = `PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-
     SELECT DISTINCT ?type
     WHERE { 
-        ?s a ?type
+      ?inst a ?type .
+      ?inst ?Property ?Value .
+      ?Property <https://example.com/belongsToPset> ?pSet .
     }
     `;
 
-    const spaces = await lastValueFrom(this._comunica.selectQuery(query));
-    return spaces.map((item: any) => {
+    const types = await lastValueFrom(this._comunica.selectQuery(query));
+    return types.map((item: any) => {
       const typeWithURI = item.type.value;
 
       var type = typeWithURI.split('#').pop();
@@ -49,8 +50,8 @@ export class ElementsService {
     } ORDER BY ?pSet 
     `;
 
-    const spaces = await lastValueFrom(this._comunica.selectQuery(query));
-    return spaces.map((item: any) => {
+    const properties = await lastValueFrom(this._comunica.selectQuery(query));
+    return properties.map((item: any) => {
       // const instanceWithURI = item.inst.value;
       const propertyWithURI = item.Property.value;
       const value = item.Value.value;

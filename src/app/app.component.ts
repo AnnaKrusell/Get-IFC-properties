@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
   public fileUploaded: boolean = false;
   public dataExtracted: boolean = false;
   public excelData: any;
-  // public list: any;
+  public masterCheck: boolean = true;
+
 
   constructor(
     private _modelAdd: ModelAddService,
@@ -33,42 +34,6 @@ export class AppComponent implements OnInit {
     this._comunica.getSources().subscribe(res => {
       console.log(res);
     })
-
-    // this.list = [
-    //   {
-    //     title: 'IfcWall',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcWindow',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcSlab',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcDoor',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcRailing',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcStair',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcCurtainWall',
-    //     checked: false,
-    //   },
-    //   {
-    //     title: 'IfcRoof',
-    //     checked: false,
-    //   },
-    // ]
-    // return this.list
   } 
 
   async onModelUpload(ev: any) {
@@ -76,7 +41,6 @@ export class AppComponent implements OnInit {
       console.log('No file selected');
       return;
     }
-    this.fileUploaded = true;
     let file: File = ev.target.files[0];
 
     await this._modelAdd.loadModel(file);
@@ -84,10 +48,11 @@ export class AppComponent implements OnInit {
 
     // Get all types in the IFC file
     this.allTypes = await this._elementService.getTypes();
-
-  }
+    this.fileUploaded = true;
+  } 
 
   async extractData() {
+    this.dataExtracted = false;
     // When "Extract data"-button is clicked a SPARQL query will be run for each selected type
     this.allElements = [] ;
     for (var i of this.allTypes) {
@@ -113,6 +78,14 @@ export class AppComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
+  onSelectAll(){
+    // Change masterCheck for each click
+    this.masterCheck = this.masterCheck!;
+    for (var i = 0; i < this.allTypes.length; i++) {
+      this.allTypes[i].checked = this.masterCheck!;
+    }
+    return this.allTypes;
+  }
 
   
 

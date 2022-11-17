@@ -12,6 +12,9 @@ import { LBDParsersModule } from 'ngx-lbd-parsers';
 import { ComunicaModule } from 'src/app/3rdparty/comunica/comunica.module';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     ComunicaModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
