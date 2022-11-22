@@ -42,7 +42,7 @@ export class ElementsService {
     const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX ex: <https://example.com/>
     PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
-    SELECT DISTINCT  ?pSet ?Property ?Value
+    SELECT DISTINCT  ?pSet ?Property ?Value ?inst
     WHERE { 
       ?inst a <${NameWithURI}> .
       ?inst ?Property ?Value .
@@ -52,15 +52,16 @@ export class ElementsService {
 
     const properties = await lastValueFrom(this._comunica.selectQuery(query));
     return properties.map((item: any) => {
-      // const instanceWithURI = item.inst.value;
       const propertyWithURI = item.Property.value;
       const value = item.Value.value;
       const pSetWithURI = item.pSet.value;
+      const instGUIDWithURI = item.inst.value;
 
       var pSet = pSetWithURI.split('/').pop();
       var property = propertyWithURI.split('/').pop();
+      var instGUID = instGUIDWithURI.split('/').pop();
 
-      return { pSet, property, value, TypeName };
+      return { pSet, property, value, TypeName, instGUID };
     });
   }
 }

@@ -21,7 +21,10 @@
       </mat-toolbar>
 
       <div *ngIf="fileUploaded"> Select which types you want to make the data extraction for:
-        <input type="checkbox" [(ngModel)]="masterCheck" (click)="onSelectAll()" >
+        <br>
+        <p> Select by yourself:
+          <input type="checkbox" [(ngModel)]="masterCheck" (click)="onSelectAll()" >
+        </p>
         <ul class="IfcTypeList">
           <li *ngFor="let item of allTypes"> 
             <input type="checkbox" [(ngModel)]="item.checked">{{item.type}}
