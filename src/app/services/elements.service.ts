@@ -20,11 +20,17 @@ export class ElementsService {
     SELECT DISTINCT ?type
     WHERE { 
       ?inst a ?type .
-      ?inst ?Property ?Value .
-      ?Property <https://example.com/belongsToPset> ?pSet .
     }
     `;
 
+    // const query = `PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
+    // SELECT DISTINCT ?type
+    // WHERE { 
+    //   ?inst a ?type .
+    //   ?inst ?Property ?Value .
+    //   ?Property <https://example.com/belongsToPset> ?pSet .
+    // }
+    // `;
     const types = await lastValueFrom(this._comunica.selectQuery(query));
     return types.map((item: any) => {
       const typeWithURI = item.type.value;
@@ -64,4 +70,49 @@ export class ElementsService {
       return { pSet, property, value, TypeName, instGUID };
     });
   }
+
+  async getRoomTable(): Promise<Properties[]> {
+    const query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX kga: <https://w3id.org/kobl/geometry-analysis#>
+    PREFIX ifc: <http://ifcowl.openbimstandards.org/IFC2X3_Final#>
+    PREFIX bot: <https://w3id.org/bot#>
+    PREFIX kbt: <https://w3id.org/kobl/building-topology#>
+    PREFIX kg: <https://w3id.org/kobl/geometry#>
+    SELECT *
+    WHERE{
+        ?space a bot:Space .
+      OPTIONAL { ?space <https://example.com/roomNumber> ?spaceName}
+      OPTIONAL { ?space rdfs:label ?spaceLabel }
+      OPTIONAL { ?space <https://web-bim/resources/levelPSetRevitConstraints> ?spaceLevel}
+      OPTIONAL { ?space <https://web-bim/resources/areaPSetRevitDimensions> ?area}                   
+  } ORDER BY ?spaceLabel
+    `;
+
+    const properties = await lastValueFrom(this._comunica.selectQuery(query));
+    return properties.map((item: any) => {
+      const space = item.space.value;
+
+      var spaceName : any[] = [];
+      var spaceLabel : any[] = [];
+      var spaceLevel : any[] = [];
+      var spaceArea : any[] = [];
+
+      if (item.spaceName) {
+        spaceName = item.spaceName.value;
+      }
+      if (item.spaceLabel) {
+        spaceLabel = item.spaceLabel.value;
+      }
+      if (item.spaceLevel) {
+        spaceLevel = item.spaceLevel.value;
+      }
+      if (item.area) {
+        spaceArea = item.area.value;
+      }
+
+      return { space, spaceName, spaceLabel, spaceLevel, spaceArea };
+    });
+  }
+
+
 }

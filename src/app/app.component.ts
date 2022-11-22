@@ -17,12 +17,15 @@ export class AppComponent implements OnInit {
   public allTypes: any[] = [];
   public ifcElements: any[] = [];
   public allElements: any[] = [];
+  public allSpaceData: any[] = [];
   public fileName = 'ExcelSheet.xlsx';
   public fileUploaded: boolean = false;
   public dataExtracted: boolean = false;
   public excelData: any;
   public masterCheck: boolean = true;
   public modelLoading: boolean = false;
+  public displaySpaceTabel: boolean = false;
+  
 
   constructor(
     private _modelAdd: ModelAddService,
@@ -90,6 +93,19 @@ export class AppComponent implements OnInit {
     }
     return this.allTypes;
   }
+
+  async getSpaceTabel() {
+    this.allSpaceData = await this._elementService.getRoomTable();
+    this.displaySpaceTabel = true ;
+    console.log("spacetabel")
+    console.log(this.allSpaceData)
+
+    return this.allSpaceData;
+
+    
+
+    }
+
 
   
 

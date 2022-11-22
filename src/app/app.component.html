@@ -18,7 +18,11 @@
         <button class="btn" mat-raised-button [disabled]="!dataExtracted" (click)="exportExcel()">
           Export to Excel <mat-icon>cloud_download</mat-icon>
         </button>
-      </mat-toolbar>
+      
+        <button class="btn" mat-raised-button [disabled]="!fileUploaded"  (click)="getSpaceTabel()">
+          Get Standard Room Tabel <mat-icon>home</mat-icon>
+        </button>
+    </mat-toolbar>
 
       <div *ngIf="fileUploaded"> Select which types you want to make the data extraction for:
         <br>
@@ -33,6 +37,23 @@
       </div>
       
       <mat-progress-bar *ngIf="modelLoading" mode="indeterminate" class="mat-progress-bar-buffer"></mat-progress-bar>
+
+      <div *ngIf="displaySpaceTabel" > Standard room tabel
+        <tr style="width: 100%;"> 
+          <th style="width: 100%;">Space</th>
+          <th style="width: 100%;">Name</th>
+          <th style="width: 100%;">Label</th>
+          <th style="width: 100%;">Level</th>
+          <th style="width: 100%;">Area</th>
+        </tr>
+        <table *ngFor="let i of allSpaceData" style="width: 100%;">
+            <td style="width: 100%;"> {{i.space}}</td>
+            <td style="width: 100%;">{{i.spaceName}}</td>
+            <td style="width: 100%;">{{i.spaceLabel}}</td>
+            <td style="width: 100%;">{{i.spaceLevel}}</td>
+            <td style="width: 100%;">{{i.spaceArea}}</td>
+        </table>
+      </div>
 
       <div *ngIf="dataExtracted" id="excel-table"> Results from data extraction, which can be exported to Excel
       <table *ngFor="let i of allElements" style="width: 100%;">
