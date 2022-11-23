@@ -19,8 +19,8 @@
           Export to Excel <mat-icon>cloud_download</mat-icon>
         </button>
       
-        <button class="btn" mat-raised-button [disabled]="!fileUploaded"  (click)="getSpaceTabel()">
-          Get Standard Room Tabel <mat-icon>home</mat-icon>
+        <button class="btn" mat-raised-button [disabled]="!fileUploaded"  (click)="getSpaceTable()">
+          Get Standard Room Table <mat-icon>home</mat-icon>
         </button>
     </mat-toolbar>
 
@@ -38,7 +38,7 @@
       
       <mat-progress-bar *ngIf="modelLoading" mode="indeterminate" class="mat-progress-bar-buffer"></mat-progress-bar>
 
-      <div *ngIf="displaySpaceTabel" > Standard room tabel
+      <div *ngIf="displaySpaceTabel" > Standard room table
         <tr style="width: 100%;"> 
           <th style="width: 100%;">Space</th>
           <th style="width: 100%;">Name</th>
