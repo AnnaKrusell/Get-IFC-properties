@@ -83,8 +83,10 @@ export class ElementsService {
         ?space a bot:Space .
       OPTIONAL { ?space <https://example.com/roomNumber> ?spaceName}
       OPTIONAL { ?space rdfs:label ?spaceLabel }
-      OPTIONAL { ?space <https://web-bim/resources/levelPSetRevitConstraints> ?spaceLevel}
-      OPTIONAL { ?space <https://web-bim/resources/areaPSetRevitDimensions> ?area}                   
+      OPTIONAL { ?space <https://web-bim/resources/levelConstraints> ?spaceLevel}
+      OPTIONAL { ?space <https://web-bim/resources/areaDimensions> ?area}  
+      OPTIONAL { ?space <https://web-bim/resources/roomCategoryIdentityData> ?category}    
+                     
   } ORDER BY ?spaceLabel
     `;
 
@@ -96,7 +98,8 @@ export class ElementsService {
       var spaceLabel : any[] = [];
       var spaceLevel : any[] = [];
       var spaceArea : any[] = [];
-
+      var spaceCategory : any[] = [];
+      
       if (item.spaceName) {
         spaceName = item.spaceName.value;
       }
@@ -109,8 +112,11 @@ export class ElementsService {
       if (item.area) {
         spaceArea = item.area.value;
       }
+      if (item.category) {
+        spaceCategory = item.category.value;
+      }
 
-      return { space, spaceName, spaceLabel, spaceLevel, spaceArea };
+      return { space, spaceName, spaceLabel, spaceLevel, spaceArea, spaceCategory };
     });
   }
 

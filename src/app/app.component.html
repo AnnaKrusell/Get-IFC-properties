@@ -38,20 +38,24 @@
       
       <mat-progress-bar *ngIf="modelLoading" mode="indeterminate" class="mat-progress-bar-buffer"></mat-progress-bar>
 
-      <div *ngIf="displaySpaceTabel" > Standard room tabel
-        <tr style="width: 100%;"> 
-          <th style="width: 100%;">Space</th>
-          <th style="width: 100%;">Name</th>
-          <th style="width: 100%;">Label</th>
-          <th style="width: 100%;">Level</th>
-          <th style="width: 100%;">Area</th>
+      <div *ngIf="displaySpaceTabel" id="excel-table"> Standard room tabel
+        <table style="width: 100%;">
+        <tr> 
+          <th>Space</th>
+          <th>Name</th>
+          <th>Label</th>
+          <th>Room Category</th>
+          <th>Level</th>
+          <th>Area</th>
         </tr>
-        <table *ngFor="let i of allSpaceData" style="width: 100%;">
-            <td style="width: 100%;"> {{i.space}}</td>
-            <td style="width: 100%;">{{i.spaceName}}</td>
-            <td style="width: 100%;">{{i.spaceLabel}}</td>
-            <td style="width: 100%;">{{i.spaceLevel}}</td>
-            <td style="width: 100%;">{{i.spaceArea}}</td>
+        <tr *ngFor="let i of allSpaceData"> 
+            <td>{{i.space}}</td>
+            <td>{{i.spaceName}}</td>
+            <td>{{i.spaceLabel}}</td>
+            <td>{{i.spaceCategory}}</td>
+            <td>{{i.spaceLevel}}</td>
+            <td>{{i.spaceArea}}</td>
+          </tr>
         </table>
       </div>
 

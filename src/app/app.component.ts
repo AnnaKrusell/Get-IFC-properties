@@ -96,9 +96,11 @@ export class AppComponent implements OnInit {
 
   async getSpaceTabel() {
     this.allSpaceData = await this._elementService.getRoomTable();
+
+
+    // Parameter used in the html  
+    this.dataExtracted = true ;
     this.displaySpaceTabel = true ;
-    console.log("spacetabel")
-    console.log(this.allSpaceData)
 
     return this.allSpaceData;
 
