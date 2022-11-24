@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
     return this.allTypes;
   }
 
-  async getSpaceTabel() {
+  async getSpaceTable() {
     this.allSpaceData = await this._elementService.getRoomTable();
 
 
