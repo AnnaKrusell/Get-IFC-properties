@@ -86,10 +86,8 @@ export class AppComponent implements OnInit {
   }
 
   onSelectAll(){
-    // Change masterCheck for each click
-    this.masterCheck = this.masterCheck!;
     for (var i = 0; i < this.allTypes.length; i++) {
-      this.allTypes[i].checked = this.masterCheck!;
+      this.allTypes[i].checked = !this.masterCheck;
     }
     return this.allTypes;
   }
