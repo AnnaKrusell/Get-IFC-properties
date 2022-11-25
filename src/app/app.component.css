@@ -34,15 +34,19 @@
     font-weight: 500;
 }
   
-table, th, td {
+th, td {
     border: 1px solid white;
     border-collapse: collapse;
   }
-  th, td {
+th, td {
     background-color: rgba(30, 144, 255, 0.25);
   }
 
-  .IfcTypeList {
+th:hover, td:hover {
+    background-color: rgba(30, 144, 255, 0.35);
+  }
+
+.IfcTypeList {
     column-count: 3;
 }
 
@@ -51,4 +55,15 @@ table, th, td {
     margin-right: 10px;
     align-items: left;
     width: 800px;
+  }
+
+  .icon {
+    opacity: 20%;
+    transform: scale(0.75);
+    vertical-align:top;
+  }
+  .icon:hover {
+    opacity: 80%;
+    transform: scale(0.75);
+    vertical-align:top;
   }

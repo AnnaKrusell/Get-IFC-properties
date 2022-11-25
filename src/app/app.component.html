@@ -49,7 +49,9 @@
           <th>Area</th>
         </tr>
         <tr *ngFor="let i of allSpaceData"> 
-            <td (click)="clickedSpace(i.space)">{{i.space}}</td>
+            <td (click)="clickedSpace(i.space)">{{i.space}}
+              <mat-icon class="icon" style="cursor: pointer;">remove_red_eye</mat-icon>
+            </td>
             <td>{{i.spaceName}}</td>
             <td>{{i.spaceLabel}}</td>
             <td>{{i.spaceCategory}}</td>
@@ -71,6 +73,7 @@
         <tr *ngFor="let item of i">
           <td>{{item.TypeName}}</td>
           <td (click)="clickedSpace(item.instGUID)">{{item.instGUID}}
+            <mat-icon class="icon" style="cursor: pointer;">remove_red_eye</mat-icon>
           </td>
           <td>{{item.pSet}}</td>
           <td>{{item.property}}</td>
