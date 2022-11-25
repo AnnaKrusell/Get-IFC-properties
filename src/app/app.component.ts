@@ -6,6 +6,8 @@ import { ElementsService } from './services/elements.service';
 import { modelViewerSettings } from './viewer-settings';
 import * as XLSX from 'xlsx';
 import { ComunicaService } from 'src/app/3rdparty/comunica/comunica.service';
+import { UtilsService } from './services/utils.service';
+import { ColorService } from 'ngx-ifc-viewer';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +32,9 @@ export class AppComponent implements OnInit {
   constructor(
     private _modelAdd: ModelAddService,
     private _elementService: ElementsService,
-    private _comunica: ComunicaService
+    private _comunica: ComunicaService,
+    private _colorService: ColorService,
+    private _utils: UtilsService
   ) {}
 
   ngOnInit(){
@@ -101,11 +105,15 @@ export class AppComponent implements OnInit {
     this.displaySpaceTabel = true ;
 
     return this.allSpaceData;
-
-    
-
     }
 
+    clickedSpace(URI: string){
+      this._colorService.dimAll();
+      const globalIds = [this._utils.uriToGlobalId(URI)];
+      this._colorService.colorSubsetGlobalIds(globalIds, 
+        "grey", "space-hover");
+      }
+      
 
   
 
